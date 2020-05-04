@@ -108,8 +108,8 @@ def main():
     # save_to_file(test_arts, "test_arts_val.json")
 
     test_arts = load_from_file("test_arts_train.json")
-    start_index = 4500
-    for (index, art) in enumerate(test_arts[start_index:start_index+500]):
+    start_index = 1050
+    for (index, art) in enumerate(test_arts[start_index:start_index+50]):
         try:
             if index % 10 == 0:
                 print(start_index+index)
@@ -128,8 +128,8 @@ def main():
             print("Error", sys.exc_info()[0])
             break
 
-    # test_arts = load_from_file("test_arts_val.json")
-    # print(test_arts[11])
+    # test_arts = load_from_file("test_arts_train.json")
+    # print(test_arts[1191])
 
 if __name__ == "__main__":
     main()
