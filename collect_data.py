@@ -133,7 +133,7 @@ def main2():
             break
 
 def main3():
-    '''Create a ImageFolder dataset for culture groups'''
+    '''Create a json file containing ids for a specified geographic group'''
 
     culture = "flemish"
     geography = "Flanders"
@@ -149,8 +149,13 @@ def main3():
 
     save_to_file(culture_ids, culture+".json")
 
+def main4():
+    '''Create a Image folder dataset from a geographic group ids json'''
+
+
 if __name__ == "__main__":
     # main()
     # main2()
-    main3()
+    # main3()
+    main4()
     pass
