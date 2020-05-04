@@ -90,22 +90,26 @@ def get_century(year):
         return (year // 100)
 
 def main():
+    '''Create a data_arts json file (list of museum art API responses)'''
 
-    # dept6_ids = load_from_file("dept6_ids.json")
-    # test_arts = load_from_file("test_arts.json")
+    dept6_ids = load_from_file("dept6_ids.json")
+    test_arts = load_from_file("test_arts.json")
 
-    # for index, id in enumerate(dept6_ids[5000:6000]):
-    #     try:
-    #         if index % 100 == 0:
-    #             print(index)
-    #         sleep(0.1)
-    #         art = get_art(id)
-    #         test_arts.append(art)
-    #     except:
-    #         print("Index", index)
-    #         print("Error", sys.exc_info()[0])
-    #         break
-    # save_to_file(test_arts, "test_arts_val.json")
+    for index, id in enumerate(dept6_ids[5000:6000]):
+        try:
+            if index % 100 == 0:
+                print(index)
+            sleep(0.1)
+            art = get_art(id)
+            test_arts.append(art)
+        except:
+            print("Index", index)
+            print("Error", sys.exc_info()[0])
+            break
+    save_to_file(test_arts, "test_arts_val.json")
+
+def main2():
+    '''Create a ImageFolder dataset from data_arts json file'''
 
     test_arts = load_from_file("test_arts_train.json")
     start_index = 1050
@@ -128,8 +132,25 @@ def main():
             print("Error", sys.exc_info()[0])
             break
 
-    # test_arts = load_from_file("test_arts_train.json")
-    # print(test_arts[1191])
+def main3():
+    '''Create a ImageFolder dataset for culture groups'''
+
+    culture = "flemish"
+    geography = "Flanders"
+
+    culture_ids = get_ids({
+        "hasImages":"true",
+        "medium":"Paintings",
+        "geoLocation":geography,
+        "q":"*"
+        })    
+
+    print("Total count:", len(culture_ids))
+
+    save_to_file(culture_ids, culture+".json")
 
 if __name__ == "__main__":
-    main()
+    # main()
+    # main2()
+    main3()
+    pass
