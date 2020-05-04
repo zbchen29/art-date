@@ -5,6 +5,8 @@ from time import sleep
 import sys
 
 ### Documentation for MET API: https://metmuseum.github.io/
+###
+### MISSING: American (0[id=12765]), French (152[id=237840]), Indian (171[id=50939])
 
 def get_ids(params={}):
     '''Return a list of valid art object ids from the Met based on params'''
@@ -152,15 +154,15 @@ def main3():
 def main4():
     '''Create a Image folder dataset from a geographic group ids json'''
 
-    culture = "american"
+    culture = "japanese"
 
     # Load the list of ids for this culture
     culture_ids = load_from_file("paintings_culture_ids/" + culture + ".json")
 
     start_index = 0
-    for (index, id) in enumerate(culture_ids[start_index:start_index+2]):
+    for (index, id) in enumerate(culture_ids[start_index:]):
         try:
-            if index % 10 == 0:
+            if index % 25 == 0:
                 print(start_index+index)
             sleep(0.1)
 
@@ -182,5 +184,6 @@ if __name__ == "__main__":
     # main()
     # main2()
     # main3()
-    main4()
+    # main4()
+
     pass
