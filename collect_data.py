@@ -2,6 +2,7 @@ import requests
 import json
 from pathlib import Path
 from time import sleep
+import sys
 
 ### Documentation for MET API: https://metmuseum.github.io/
 
@@ -90,32 +91,42 @@ def get_century(year):
 
 def main():
 
-    dept6_ids = load_from_file("dept6_ids.json")
-    test_arts = load_from_file("test_arts.json")
-
-    for index, id in enumerate(dept6_ids[5000:1000]):
-        if index % 100 == 0:
-            print(index)
-        sleep(0.1)
-        art = get_art(id)
-        test_arts.append(art)
-    save_to_file(test_arts, "test_arts.json")
-
+    # dept6_ids = load_from_file("dept6_ids.json")
     # test_arts = load_from_file("test_arts.json")
-    # start_index = 4000
-    # for (index, art) in enumerate(test_arts[start_index:start_index+1000]):
-    #     if index % 50 == 0:
-    #         print(start_index+index)
-    #     sleep(0.1)
 
-    #     year = art["objectBeginDate"]
-    #     image_url = art["primaryImageSmall"]
+    # for index, id in enumerate(dept6_ids[5000:6000]):
+    #     try:
+    #         if index % 100 == 0:
+    #             print(index)
+    #         sleep(0.1)
+    #         art = get_art(id)
+    #         test_arts.append(art)
+    #     except:
+    #         print("Index", index)
+    #         print("Error", sys.exc_info()[0])
+    #         break
+    # save_to_file(test_arts, "test_arts_val.json")
 
-    #     century = str(get_century(year))
-    #     path = "data/" + century
-    #     filename = str(start_index + index) + ".jpg"
+    test_arts = load_from_file("test_arts_val.json")
+    start_index = 0
+    for (index, art) in enumerate(test_arts[start_index:start_index+1000]):
+        try:
+            if index % 50 == 0:
+                print(start_index+index)
+            sleep(0.1)
 
-    #     save_picture(path, filename, get_picture(image_url))
+            year = art["objectBeginDate"]
+            image_url = art["primaryImageSmall"]
+
+            century = str(get_century(year))
+            path = "data/art_val/" + century
+            filename = str(start_index + index) + ".jpg"
+
+            save_picture(path, filename, get_picture(image_url))
+        except:
+            print("Index", start_index + index)
+            print("Error", sys.exc_info()[0])
+            break
 
 if __name__ == "__main__":
     main()
