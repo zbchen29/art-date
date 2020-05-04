@@ -152,6 +152,31 @@ def main3():
 def main4():
     '''Create a Image folder dataset from a geographic group ids json'''
 
+    culture = "american"
+
+    # Load the list of ids for this culture
+    culture_ids = load_from_file("paintings_culture_ids/" + culture + ".json")
+
+    start_index = 0
+    for (index, id) in enumerate(culture_ids[start_index:start_index+2]):
+        try:
+            if index % 10 == 0:
+                print(start_index+index)
+            sleep(0.1)
+
+            art = get_art(id)
+
+            image_url = art["primaryImageSmall"]
+            path = "data/art_culture_train/" + culture
+            filename = str(start_index + index) + ".jpg"
+
+            save_picture(path, filename, get_picture(image_url))
+        except:
+            print("Error on index", start_index + index, "with ID", id)
+            print("Error", sys.exc_info()[0])
+            continue
+
+
 
 if __name__ == "__main__":
     # main()
