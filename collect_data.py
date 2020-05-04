@@ -107,11 +107,11 @@ def main():
     #         break
     # save_to_file(test_arts, "test_arts_val.json")
 
-    test_arts = load_from_file("test_arts_val.json")
-    start_index = 0
-    for (index, art) in enumerate(test_arts[start_index:start_index+1000]):
+    test_arts = load_from_file("test_arts_train.json")
+    start_index = 4500
+    for (index, art) in enumerate(test_arts[start_index:start_index+500]):
         try:
-            if index % 50 == 0:
+            if index % 10 == 0:
                 print(start_index+index)
             sleep(0.1)
 
@@ -119,7 +119,7 @@ def main():
             image_url = art["primaryImageSmall"]
 
             century = str(get_century(year))
-            path = "data/art_val/" + century
+            path = "data/art_train/" + century
             filename = str(start_index + index) + ".jpg"
 
             save_picture(path, filename, get_picture(image_url))
@@ -127,6 +127,9 @@ def main():
             print("Index", start_index + index)
             print("Error", sys.exc_info()[0])
             break
+
+    # test_arts = load_from_file("test_arts_val.json")
+    # print(test_arts[11])
 
 if __name__ == "__main__":
     main()
