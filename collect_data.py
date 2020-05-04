@@ -90,32 +90,32 @@ def get_century(year):
 
 def main():
 
-    # dept6_ids = load_from_file("dept6_ids.json")
-    # test_arts = load_from_file("test_arts.json")
-
-    # for index, id in enumerate(dept6_ids[1000:5000]):
-    #     if index % 100 == 0:
-    #         print(index)
-    #     sleep(0.1)
-    #     art = get_art(id)
-    #     test_arts.append(art)
-    # save_to_file(test_arts, "test_arts.json")
-
+    dept6_ids = load_from_file("dept6_ids.json")
     test_arts = load_from_file("test_arts.json")
-    start_index = 4000
-    for (index, art) in enumerate(test_arts[start_index:start_index+1000]):
-        if index % 50 == 0:
-            print(start_index+index)
+
+    for index, id in enumerate(dept6_ids[5000:1000]):
+        if index % 100 == 0:
+            print(index)
         sleep(0.1)
+        art = get_art(id)
+        test_arts.append(art)
+    save_to_file(test_arts, "test_arts.json")
 
-        year = art["objectBeginDate"]
-        image_url = art["primaryImageSmall"]
+    # test_arts = load_from_file("test_arts.json")
+    # start_index = 4000
+    # for (index, art) in enumerate(test_arts[start_index:start_index+1000]):
+    #     if index % 50 == 0:
+    #         print(start_index+index)
+    #     sleep(0.1)
 
-        century = str(get_century(year))
-        path = "data/" + century
-        filename = str(start_index + index) + ".jpg"
+    #     year = art["objectBeginDate"]
+    #     image_url = art["primaryImageSmall"]
 
-        save_picture(path, filename, get_picture(image_url))
+    #     century = str(get_century(year))
+    #     path = "data/" + century
+    #     filename = str(start_index + index) + ".jpg"
+
+    #     save_picture(path, filename, get_picture(image_url))
 
 if __name__ == "__main__":
     main()
