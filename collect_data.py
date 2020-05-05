@@ -3,6 +3,8 @@ import json
 from pathlib import Path
 from time import sleep
 import sys
+import os
+import random
 
 ### Documentation for MET API: https://metmuseum.github.io/
 ###
@@ -178,6 +180,23 @@ def main4():
             print("Error", sys.exc_info()[0])
             continue
 
+def main5():
+    '''Move a fraction of the total images to a validation dataset ImageFolder'''
+
+    culture = "spanish"
+
+    # List of image filenames in the specified folder
+    images = os.listdir("data/art_culture_train/" + culture)[:]
+    random.shuffle(images)
+
+    # Move to validation dataset
+    for image in images[:int(len(images)/10)]:
+        os.rename("data/art_culture_train/" + culture + "/" + image, "data/art_culture_val/" + culture + "/" + image)
+    
+    # Move to testing dataset
+    for image in images[int(len(images)/10):2*int(len(images)/10)]:
+        os.rename("data/art_culture_train/" + culture + "/" + image, "data/art_culture_test/" + culture + "/" + image)
+
 
 
 if __name__ == "__main__":
@@ -185,5 +204,6 @@ if __name__ == "__main__":
     # main2()
     # main3()
     # main4()
+    main5()
 
     pass
